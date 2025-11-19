@@ -1,0 +1,137 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}我的網站{% endblock %}</title>
+  <style>
+
+    body {
+      margin: 0;
+    }
+
+    /* 上方橫條 */
+    .border-top {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 80px;
+      background-color: #333;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      padding-left: 10px;
+    }
+
+    /* 左側直條 */
+    .border-left {
+      position: fixed;
+      top: 70px; /* 避開上方橫條 */
+      left: 0;
+      width: 150px;
+      height: calc(100% - 80px);
+      background-color: #666;
+      z-index: 5;
+    }
+
+
+    /* 主要內容區 */
+    .frame {
+      padding: 80px 20px 20px 170px; /* 上 右 下 左 */
+      background-color: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+      position: relative;
+      z-index: 1;
+    }
+
+    .border-top img {
+      position: relative;
+      top: 7px;       /* 控制上方間距，越小越貼近 */
+      left: 0px;     /* 控制左側間距 */
+      height: 80px;   /* 控制圖片高度，避免過大 */
+      object-fit: contain;
+      z-index: 15;   
+      cursor: pointer; /* 滑鼠移過去變成手指 */
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      margin-left: auto;
+      padding: 0 40px; /* 左右兩側不貼邊 */
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 20px;
+    }
+
+    .nav-links a:hover {
+      text-decoration: underline;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+      padding-left: 30px;
+      padding-top: 15px;
+      margin: 0;
+    }
+
+    .sidebar-menu li {
+      margin: 16px 0;
+    }
+
+    .sidebar-menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 22px;
+    }
+
+    .sidebar-menu a:hover {
+      text-decoration: underline;
+    }
+    /* 首頁專屬樣式：不留側邊空白 */
+    .frame.no-sidebar {
+      padding: 80px 20px 20px 20px; /* 上 右 下 左 */
+    }
+  </style>
+</head>
+<body>
+  <!-- 上方橫條 -->
+  <div class="border-top">
+    <a href="{% url 'home' %}">
+      <img src="{% static 'aiproject/images/ailogo.png' %}" alt="Logo">
+    </a>
+      <div class="nav-links">
+        {% block nav %}
+        <a href="{% url 'intro' %}">平台簡介</a>
+        <a href="{% url 'tools' %}">工具介紹</a>
+        <a href="{% url 'recommend' %}">工具推薦</a>
+        <a href="{% url 'contact' %}">聯絡我們</a>
+        {% endblock %}
+      </div>
+  </div>  
+  
+  <!-- 左側直條 -->
+{% if request.path != '/' %}
+<div class="border-left">
+    <ul class="sidebar-menu">
+        <li><a href="{% url 'intro' %}">平台簡介</a></li>
+        <li><a href="{% url 'tools' %}">工具介紹</a></li>
+        <li><a href="{% url 'recommend' %}">工具推薦</a></li>
+        <li><a href="{% url 'contact' %}">聯絡我們</a></li>
+    </ul>
+</div>
+{% endif %}
+
+  <!-- 內容區塊 -->
+  <div class="frame {% if request.path == '/' %}no-sidebar{% endif %}">
+    {% block content %}
+    {% endblock %}
+  </div>
+
+</body>
+</html>

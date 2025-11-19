@@ -1,0 +1,103 @@
+{% extends 'aiproject/base.html' %}
+{% load static %}
+
+{% block title %}工具介紹{% endblock %}
+{% block nav %}
+<!-- 特製版的導覽列 -->
+<a href="{% url 'home' %}">回首頁</a>
+{% endblock %}
+{% block content %}
+  <div class="tools-container">
+    <img src="{% static 'aiproject/images/tools.jpg' %}" alt="tools" class="tools-image">
+  </div>
+
+  {# 多張卡：每個範圍一張 #}
+  {% for card in cards %}
+    <section class="tool-row" style="--thumb-width: {{ card.width }}; --thumb-ratio: {{ card.ratio }};">
+      <!-- 左列：縮圖 + 名稱 -->
+      <div class="tool-thumb">
+        <div class="thumb-frame">
+          <img src="{% static card.thumb %}" alt="{{ card.caption }}" onerror="this.style.display='none'">
+        </div>
+        <div class="tool-meta">
+            <h2 class="tool-name">{{ card.caption }}</h2>
+            <p class="tool-tagline">
+                <a href="{{ card.source_url }}" target="_blank" rel="noopener">來源連結↗</a>
+            </p>
+        </div>
+      </div>
+
+      <!-- 右列：多欄方案 -->
+      <div class="plan-grid">
+        {% for col in card.plans %}
+          <article class="plan card">
+            <ul class="plan-body">
+              {% for it in col.items %}
+                <li class="kv">
+                  <span class="k">{{ it.label }}</span>
+                  <span class="v">{{ it.val }}</span>
+                </li>
+              {% endfor %}
+            </ul>
+          </article>
+        {% endfor %}
+      </div>
+    </section>
+  {% endfor %}
+
+  <style>
+    .tools-image { 
+        max-width:100%; 
+        height:auto; 
+        display:block; 
+        margin:10px auto; 
+    }
+    
+    .tool-row{
+      --thumb-width: 280px;
+      --thumb-ratio: 4 / 5;
+
+      display:grid; grid-template-columns: var(--thumb-width) 1fr; gap:16px; align-items:start;  font-family: "Microsoft JhengHei", sans-serif;
+       border:1px solid #e4e7ec; border-radius:18px;
+      padding:16px; margin:16px 0 24px; box-shadow:0 1px 0 rgba(0,0,0,.02);
+    }
+    .tool-thumb{ display:grid; grid-template-rows:auto auto; gap:10px; }
+    .thumb-frame{
+      border:3px solid #155e75; border-radius:26px; background:#eef6f9;
+      aspect-ratio: var(--thumb-ratio);
+      display:flex; align-items:center; justify-content:center; overflow:hidden;
+    }
+    .thumb-frame img{ width:100%; height:100%; object-fit:cover; }
+    .tool-meta{ padding:0 4px; }
+    .tool-name{ font-size:20px; margin:0; text-align: center;}
+    .tool-tagline{ margin:4px 0 0; color:#6b7280; font-size:13px; text-align: center;}
+
+    /* 右側欄：橫向滑動 */
+    .plan-grid{
+      display:grid; grid-auto-flow:column; grid-auto-columns:minmax(240px,1fr);
+      gap:12px; overflow-x:auto; padding-bottom:6px;
+    }
+    .plan.card{
+      background:#fff; border:1px solid #133153ff; border-radius:14px;
+      display:flex; flex-direction:column; min-height:120px;
+    }
+    .plan-body{ list-style:none; margin:0; padding:10px 12px; }
+
+    /* Key/Value 列：基數行（odd）斑馬紋 */
+    .kv{
+      display:grid; grid-template-columns:1fr 1.2fr; gap:8px;
+      padding:6px 8px; border-bottom:1px dashed #1470e0ff; border-radius:6px;
+    }
+    .kv:nth-child(odd){ background:#a2c3ecff; }  
+    .kv:last-child{ border-bottom:0; }
+    .k{ color:#6b7280; font-size:13px; }
+    .v{ font-size:14px; white-space:pre-wrap; }
+
+    /* RWD */
+    @media (max-width:900px){
+      .tool-row{ grid-template-columns:1fr; }
+      .thumb-frame{ aspect-ratio:1/1; }
+      .kv{ grid-template-columns:1fr 1fr; }
+    }
+  </style>
+{% endblock %}

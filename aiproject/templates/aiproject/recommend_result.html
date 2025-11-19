@@ -1,0 +1,151 @@
+{% extends 'aiproject/base.html' %}
+{% load static %}
+
+{% block title %}推薦結果{% endblock %}
+
+{% block nav %}
+<a href="{% url 'home' %}">回首頁</a>
+{% endblock %}
+
+{% block content %}
+<div class="recommend-page">
+  <img src="{% static 'aiproject/images/recommend.jpg' %}" class="hero" alt="recommend">
+<div class="result-page">
+  <div class="container">
+
+    <h1 class="page-title">您所選擇的條件如下:</h1>
+
+    <!-- 使用者條件摘要（已中文化） -->
+    <div class="card summary-card">
+      <div class="row">
+        <div class="col">
+          <div class="summary-line"><span class="tag">產業：</span>{{ chosen_human.industry }}</div>
+          <div class="summary-line"><span class="tag">主要功能：</span>{{ chosen_human.main_need }}</div>
+          <div class="summary-line"><span class="tag">價格區間：</span>{{ chosen_human.price_range }}</div>
+        </div>
+        <div class="col">
+          <div class="summary-line">
+            <span class="tag">希望功能：</span>
+            {% if chosen_human.advanced_base and chosen_human.advanced_base|length > 0 %}
+              {% for it in chosen_human.advanced_base %}<span class="chip">{{ it }}</span>{% endfor %}
+            {% else %}—{% endif %}
+          </div>
+          <div class="summary-line">
+            <span class="tag">進一步（一般）：</span>
+            {% if chosen_human.advanced_step1 and chosen_human.advanced_step1|length > 0 %}
+              {% for it in chosen_human.advanced_step1 %}<span class="chip">{{ it }}</span>{% endfor %}
+            {% else %}—{% endif %}
+          </div>
+          <div class="summary-line">
+            <span class="tag">進一步（圖像/影像）：</span>
+            {% if chosen_human.advanced_step2 and chosen_human.advanced_step2|length > 0 %}
+              {% for it in chosen_human.advanced_step2 %}<span class="chip">{{ it }}</span>{% endfor %}
+            {% else %}—{% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h1 class="page-title">為您推薦的工具</h1>
+    
+    <!-- 推薦清單 -->
+    {% if tools %}
+      <div class="tool-list">
+        {% for t in tools %}
+          <div class="tool-card">
+            <div class="tool-left">
+              <div class="logo-wrap">
+                {% if t.logo_url %}
+                  <img class="logo-img" src="{% static t.logo_url %}" alt="{{ t.name }}">
+                {% else %}
+                  <img class="logo-img" src="{% static 'aiproject/images/ailogo.png' %}" alt="{{ t.name }}">
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="tool-right">
+              <div class="tool-head">
+                <h3 class="tool-name">{{ t.name }}</h3>
+                <div class="tool-price">
+                  價格：
+                  {% if t.price %}{{ t.price }}{% else %}—{% endif %}
+                </div>
+              </div>
+
+              <div class="badge-row">
+                {% if t.support_chinese %}<span class="chip">中文</span>{% endif %}
+                {% if t.user_personal %}<span class="chip">個人</span>{% endif %}
+                {% if t.user_team %}<span class="chip">團隊</span>{% endif %}
+                {% if t.image %}<span class="chip">圖片</span>{% endif %}
+                {% if t.vedio %}<span class="chip">影像</span>{% endif %}
+                {% if t.yearly_discount %}<span class="chip">年繳</span>{% endif %}
+                {% if t.for_business %}<span class="chip">商用</span>{% endif %}
+                {% if t.for_personal %}<span class="chip">私有</span>{% endif %}
+              </div>
+
+              <!-- 三條「對應 Excel 說明文字」＋ 使用限制（user_limit） -->
+              <ul class="note-list">
+                {% if t.upload_data %}<li><span class="note-label">文件上傳：</span>{{ t.upload_data_note|default:"—" }}</li>{% endif %}
+                {% if t.make_data %}<li><span class="note-label">文件生成：</span>{{ t.make_data_note|default:"—" }}</li>{% endif %}
+                {% if t.make_image %}<li><span class="note-label">圖像生成：</span>{{ t.make_image_note|default:"—" }}</li>{% endif %}
+                {% if t.user_limit %}<li><span class="note-label">使用限制：</span>{{ t.user_limit }}</li>{% endif %}
+              </ul>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="card empty-card">
+        <p>很抱歉!</p>
+        <p>因目前平台資料庫所記錄的資料數據有限，找不到符合所有您需要條件的工具。未來我們將持續更新資料庫，以滿足所有使用者的需求條件!</p>
+        <p>建議您可以回上頁放寬部分限制並再嘗試一次!</p>
+      </div>
+    {% endif %}
+
+    <div class="action-row">
+      <a href="{% url 'recommend' %}" class="btn-secondary">回到基本條件</a>
+    </div>
+
+  </div>
+</div>
+
+<style>
+.hero{max-width:100%;height:auto;display:block;margin:10px auto}
+
+.result-page{font-family:system-ui,-apple-system,"Microsoft JhengHei",sans-serif;color:#222}
+.container{max-width:1080px;margin:0 auto;padding:12px 8px 40px}
+.page-title{font-size:24px;font-weight:700;margin:14px 0 10px}
+
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:16px 18px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.summary-card{margin:10px 0 18px}
+.row{display:flex;gap:24px;flex-wrap:wrap}
+.col{flex:1 1 360px}
+
+.summary-line{margin:6px 0;line-height:1.7}
+.tag{display:inline-block;font-weight:700;color:#111;margin-right:6px}
+.chip{display:inline-block;padding:2px 10px;border:1px solid #d1d5db;border-radius:999px;font-size:12px;margin:2px 6px 2px 0;background:#f8fafc}
+.muted{color:#6b7280;font-size:12px}
+
+.tool-list{display:flex;flex-direction:column;gap:14px}
+.tool-card{display:flex;gap:16px;border:1px solid #e5e7eb;border-radius:12px;background:#fff;padding:14px 16px;align-items:flex-start}
+.tool-left{flex:0 0 120px}
+.logo-wrap{width:120px;height:120px;border:1px solid #101011ff;border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#fafafa; object-fit: contain;box-shadow: 0 1px 2px rgba(0,0,0,0.08); /* ✅ 加點陰影 */}
+.logo-wrap img{max-width:100%;max-height:100%;display:block; object-fit: contain; background: white;  }
+
+.tool-right{flex:1 1 auto}
+.tool-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.tool-name{font-size:18px;font-weight:700;margin:0}
+.tool-price{font-size:14px;color:#111}
+
+.badge-row{margin-top:6px}
+.note-list{margin:10px 0 0;padding-left:0;list-style:none}
+.note-list li{display:flex;gap:6px;align-items:flex-start;padding:8px 10px;border:1px solid #eef0f3;border-radius:8px;background:#fbfcfd;margin-top:6px}
+.note-label{color:#374151;font-weight:600}
+
+.empty-card{margin-top:12px}
+
+.action-row{margin-top:18px;text-align:center}
+.btn-secondary{display:inline-block;background:#f3f4f6;border:1px solid #d1d5db;color:#111;border-radius:8px;padding:8px 14px;text-decoration:none}
+.btn-secondary:hover{background:#e5e7eb}
+</style>
+{% endblock %}

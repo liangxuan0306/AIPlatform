@@ -1,0 +1,269 @@
+{% extends 'aiproject/base.html' %}
+{% load static %}
+
+{% block title %}平台簡介{% endblock %}
+
+{% block nav %}
+<a href="{% url 'home' %}" class="nav-back">回首頁</a>
+{% endblock %}
+
+{% block content %}
+<div class="intro-page">
+  <!-- 頂部 Hero 區 -->
+  <img src="{% static 'aiproject/images/intro.jpg' %}" alt="平台簡介" class="hero-image">
+
+  <!-- 平台簡介 -->
+  <section class="section">
+    <h2>平台簡介</h2>
+    <h1 class="title">
+      生成式 AI 工具推薦平台
+      <span class="subtitle">— 用最合適的 AI 工具，解決你的創作與工作需求</span>
+    </h1>
+    <p>
+      本平台透過 <strong>Python 爬蟲技術</strong> 蒐集 AI 工具資訊，並結合問卷調查以了解使用者習性。
+      系統根據使用者需求進行篩選，推薦最合適的生成式 AI 工具。
+      無論你是新手小白、行銷人員、設計師，或企業團隊，
+      都能快速找到符合需求的解決方案。
+    </p>
+    <p>
+      我們致力於提供 <span class="highlight">簡單、直觀、高效</span> 的使用體驗，
+      幫助使用者在眾多 AI 工具中快速做出最佳選擇。
+    </p>
+  </section>
+
+  <!-- 如何使用 -->
+  <section class="section howto">
+    <h2>如何使用</h2>
+
+    <div class="howto-grid">
+      <div class="howto-text">
+        <ol class="howto-steps">
+          <li>開啟本平台首頁。</li>
+          <li>點選 <strong><a href="{% url 'recommend' %}" class="link">【工具推薦】</a></strong>。</li>
+          <li>依需求勾選篩選條件後，按下 <strong>送出</strong>。</li>
+          <li>查看推薦結果，找到最適合你的 AI 工具！</li>
+        </ol>
+      </div>
+
+      <div class="howto-video">
+        <div class="video-embed">
+          <iframe
+            src="https://www.youtube.com/embed/DTSzda13tW0?rel=0&modestbranding=1"
+            title="生成式AI工具推薦平台使用教學影片"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 溫馨提醒 -->
+  <section class="section notice">
+    <h2>溫馨提醒</h2>
+    <p>
+      本平台目前為研究專題測試階段，內容可能因<strong>版本、匯率與時間等差異</strong>與官網略有不同。
+      現階段僅採用 <strong>10 種生成式 AI 工具</strong> 作為篩選依據。
+      推薦結果僅供參考，無商業推銷或強制使用意圖。
+    </p>
+  </section>
+
+  <!-- 行動引導 -->
+  <section class="cta">
+    <p>立即體驗 AI 工具推薦！</p>
+    <a href="{% url 'recommend' %}" class="cta-btn">前往工具推薦頁面 ➜</a>
+  </section>
+
+  <!-- 資料來源 -->
+  <section class="section">
+    <h2>平台篩選值依據來源</h2>
+    <p class="source-note">各項工具資料來源：</p>
+    <div class="table-container">
+      <table class="source-table">
+        <thead>
+          <tr>
+            <th>工具名稱</th>
+            <th>資料來源連結</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Claude</td><td>
+            <a href="https://www.gvm.com.tw/article/115578" target="_blank">Claude是什麼？這AI能終結冗長會議？官網與中文使用教學</a><br>
+            <a href="https://www.onion-net.com.tw/news_detail/what-is-claude" target="_blank">Claude是什麼？與ChatGPT差異在哪？Claude費用與中文使用教學</a>
+          </td></tr>
+
+          <tr><td>Writesonic</td><td>
+            <a href="https://learnai.tw/tools/writesonic/" target="_blank">LearnAI Writesonic</a>
+          </td></tr>
+
+          <tr><td>Stable Diffusion</td><td>
+            <a href="https://stablediffusionweb.com/zh-tw/pricing" target="_blank">Stable Diffusion AI 圖像生成器 PRO</a><br>
+            <a href="https://stablediffusion.fr/" target="_blank">線上Stable Diffusion人人都能使用的人工智慧</a>
+          </td></tr>
+
+          <tr><td>ChatGPT</td><td>
+            <a href="https://openai.com/zh-Hant/index/chatgpt/" target="_blank">隆重介紹 ChatGPT</a><br>
+            <a href="https://www.jyes.com.tw/news.php?act=view&id=12131#section-5" target="_blank">【科技新知】ChatGPT是什麼？付費版GPT有什麼差別？最新AI功能懶人包！</a>
+          </td></tr>
+
+          <tr><td>Gamma</td><td>
+            <a href="https://gamma.app/zh-tw/pricing" target="_blank">Gamma選擇適合你的方案</a>
+          </td></tr>
+
+          <tr><td>Leonardo</td><td>
+            <a href="https://starryai.com/en/blog/leonardo-ai-pricing" target="_blank">Leonardo AI Pricing (Explained) - Worth It?</a><br>
+            <a href="https://leonardo.ai/news/cost-of-ai-image-generation-apps/" target="_blank">Cost of AI Image Generation Apps</a>
+          </td></tr>
+
+          <tr><td>Gemini</td><td>
+            <a href="https://grenade.tw/blog/2025-gemini-25-pro/" target="_blank">【2025 最新】Gemini 2.5 Pro 是什麼？功能亮點、價格方案一次看懂</a><br>
+            <a href="https://gemini.google/assistant/?hl=zh-TW" target="_blank">Gemini 登場：你全新的個人 AI 助理</a>
+          </td></tr>
+
+          <tr><td>Perplexity</td><td>
+            <a href="https://weam.ai/blog/guide/perplexity-pricing/" target="_blank">Perplexity Pricing: Everything You Need to Know in 2025!</a><br>
+            <a href="https://www.cw.com.tw/article/5135600" target="_blank">Perplexity是什麼？免費及付費版差別在哪？優缺點、與ChatGPT、Gemini等AI工具差異一次看</a><br>
+            <a href="https://dotai.hk/blog/perplexity-2024" target="_blank">比GPT-4 , Claude3 及 Gemini 更好的AI搜索工具：Perplexity 終極使用指南</a><br>
+            <a href="https://www.toolify.ai/ai-news/discover-the-power-of-perplexity-ai-a-comparison-of-generative-ai-platforms-1300580" target="_blank">Discover the Power of Perplexity AI</a><br>
+            <a href="https://adbest.com.tw/blog/perplexity-guide/" target="_blank">Perplexity AI使用大全：6大情境×24個Prompt讓你效率翻倍！</a>
+          </td></tr>
+
+          <tr><td>Felo</td><td>
+            <a href="https://felo.ai/zh-Hant/blog/pricing/" target="_blank">Felo AI 搜尋專業計畫定價</a><br>
+            <a href="https://felo.ai/blog/felo-search-pro-vs-free-plan-differences/" target="_blank">Pro Plan與Free Plan差異</a>
+          </td></tr>
+
+          <tr><td>Sora</td><td>
+            <a href="https://www.sogi.com.tw/articles/sora/6263787" target="_blank">OpenAI影片生成工具Sora教學及費用一次看懂</a><br>
+            <a href="https://openai.com/sora/" target="_blank">OpenAI 全新的 Sora 應用程式</a>
+          </td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<style>
+/* ---------- 全局 ---------- */
+.intro-page, .intro-page p, .intro-page h1, .intro-page h2, .intro-page a {
+  font-family: "Microsoft JhengHei", sans-serif;
+  color: #333;
+}
+
+/* ---------- Hero 區 ---------- */
+.hero-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 10px auto 14px;
+}
+
+/* ---------- 通用段落 ---------- */
+.section {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.08);
+  padding: 22px 32px;
+  margin: 14px auto;
+  max-width: 1100px;
+}
+.section h2 {
+  color: #556d85;
+  font-size: 26px;
+  border-left: 6px solid #556d85;
+  padding-left: 10px;
+  margin-bottom: 14px;
+}
+.section p {
+  font-size: 20px;
+  line-height: 1.8;
+  text-align: justify;
+}
+.highlight { color: #c81d1d; font-weight: bold; }
+.title{ margin: 0; font-size: 36px; line-height: 1.2; text-align: center; }
+.title .subtitle{ font-size: 20px; color: #667085; margin-left: 10px; }
+
+/* ---------- 如何使用 ---------- */
+.section.howto h2 {
+  display: inline-block;       /* ✅ 不吃滿整行 */
+  margin-bottom: 10px;
+}
+.howto-grid {
+  display: grid;
+  grid-template-columns: 45% 45%;  /* 左文右影片 */
+  align-items: start;
+  column-gap: 40px;
+}
+.howto-text { padding-right: 8px; }
+.howto-steps {
+  margin: 0;
+  padding-left: 60px;
+  font-size: 20px;
+  line-height: 1.9;
+  margin-top: 0;
+}
+.video-embed {
+  position: relative;
+  width: 80%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  margin-top: -65px; /* ✅ 讓影片往上靠，與標題頂對齊 */
+
+}
+.video-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* ---------- 溫馨提醒 ---------- */
+.notice {
+  border-left: 5px solid #c81d1d;
+  background: #fff4f4;
+}
+.notice h2 {
+  border-color: #c81d1d;
+  color: #c81d1d;
+}
+
+/* ---------- CTA ---------- */
+.cta { text-align:center; margin: 28px auto; }
+.cta p { font-size:22px; font-weight:700; margin-bottom:10px; }
+.cta-btn {
+  display:inline-block; background:#90a6bd; color:#fff; font-weight:700;
+  padding:12px 24px; border-radius:10px; text-decoration:none; font-size:18px;
+}
+.cta-btn:hover { background:#6a87a2; }
+
+/* ---------- 表格 ---------- */
+.table-container { overflow-x:auto; margin-top:10px; }
+.source-table { width:100%; border-collapse:collapse; }
+.source-table th {
+  background:#556d85; color:#fff; padding:12px 16px; font-size:18px;
+}
+.source-table td {
+  padding:10px 16px; border-bottom:1px solid #ddd; vertical-align:top;
+}
+.source-table tr:nth-child(even){ background:#f8f9fb; }
+.source-table a { color:#0066cc; text-decoration:underline; }
+.source-table a:hover { color:#c81d1d; }
+.source-note { font-size:18px; font-weight:700; }
+
+/* ---------- 返回鍵 ---------- */
+.nav-back { color:white; text-decoration:none; }
+.nav-back:hover { text-decoration:underline; }
+
+/* ---------- RWD ---------- */
+@media (max-width: 900px) {
+  .howto-grid { grid-template-columns: 1fr; }
+  .section.howto h2 { display: block; }
+  .title { font-size:30px; }
+  .title .subtitle { font-size:16px; }
+}
+</style>
+{% endblock %}

@@ -1,0 +1,145 @@
+{% extends 'aiproject/base.html' %}
+{% load static %}
+
+{% block title %}聯絡我們{% endblock %}
+
+{% block nav %}
+<!-- 特製版的導覽列 -->
+<a href="{% url 'home' %}">回首頁</a>
+{% endblock %}
+
+{% block content %}
+
+<div class="contact-image">
+    <img src="{% static 'aiproject/images/contact.jpg' %}" alt="contact" class="contact-image">
+</div>
+
+<div class="contact-container">
+
+    <!-- 左側簡介 -->
+    <div class="contact-intro">
+        <h2>聯絡資訊與服務</h2>
+        <p>您好！感謝您使用本平台。</p>
+        <p>本平台雖初為測試階段，但仍致力於提供最優質的 AI 工具推薦服務。</p>
+        <p>若您有任何問題、建議或合作提案，歡迎透過此表單與我們聯繫。</p>
+        <p>我們收到您的表單後將在 2–3 個工作天內盡快回覆，並持續優化您的使用體驗。</p>
+        <p>我們由衷感謝您的使用！</p>
+        <h2> _____________________________________________ </h2>
+
+        <!-- 左下連絡欄 -->
+        <div class="contact-information">
+            <p>📧  Email：C111190119@nkust.edu.tw</p>
+            <p>📧  Email：C111190120@nkust.edu.tw</p>
+            <p>📞  電話：07-3617141 #23452、23453</p>
+            <p>🏢  地址：81157 高雄市楠梓區海專路142號</p>
+        </div>
+    </div>
+
+    <!-- 右側表單 -->
+    <form method="post" class="contact-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="submit-btn">送出</button>
+    </form>
+</div>
+
+<style>
+    /* 容器：左右佈局，螢幕小會自動換行 */
+    .contact-container {
+        display: flex;
+        flex-wrap: wrap;  /* 縮小螢幕時換行 */
+        gap: 25px; /* 左右間距 */
+        margin: 6px auto;
+        max-width: 1200px; /* 限制最大寬度，不會無限拉開 */
+        justify-content: flex-start; /* 保持區塊靠近並置中 */
+    }
+
+    /* 左側簡介區塊 */
+    .contact-intro {
+        width: 55%;
+        min-width: 300px;
+        background: #ffffff;
+        padding: 0px 0px 20px 0px; /* 上右下左 */
+        border-radius: 8px;
+        font-family: "Microsoft JhengHei", sans-serif;
+        font-weight: bold;
+        }
+
+    .contact-intro h2 {
+        font-size: 22px;
+        margin-bottom: 10px;
+    }
+
+    .contact-intro p {
+        line-height: 1.1;
+        font-size: 18px;
+        color: #333; /* 深灰色 */
+        margin-bottom: 10px;
+    }
+
+    /* 聯絡資訊欄 */
+    .contact-information {
+        margin-top: 10px;
+        padding: 10px;
+        background-color: #ffffff;
+        border-radius: 6px;
+        font-family: "Microsoft JhengHei", sans-serif;
+        font-size: 14px;
+        color: #333;
+    }
+
+    /* 右側表單區塊 */
+    .contact-form {
+        width: 55%
+        max-width: 600px;  /* ✅ 限制最大寬度 */
+        min-width: 350px;  /* ✅ 不會窄到看不清 */
+        background: #ffffff;
+        padding: 0px 30px 20px 0 px;
+        border-radius: 8px;
+        margin: center; 
+    }
+
+    /* 欄位標籤 */
+    .contact-form label {
+        font-weight: bold;
+        font-family: "Microsoft JhengHei", sans-serif;
+        display: block;
+        margin-top: 5px;
+    }
+
+    /* 欄位樣式 */
+    .contact-form input,
+    .contact-form textarea {
+        width: 130%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #666;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    /* 送出按鈕樣式 */
+    .submit-btn {
+        background-color: #333;
+        color: white;
+        padding: 10px 20px;
+        font-size: 16px; 
+        border: none;
+        border-radius: 4px;
+        margin-top: 15px;
+        cursor: pointer;
+    }
+
+    .submit-btn:hover {
+        background-color: #555;
+    }
+
+    /* 上方圖片 */
+    .contact-image {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 10px auto; /* 左右自動居中 */
+    }
+</style>
+{% endblock %}

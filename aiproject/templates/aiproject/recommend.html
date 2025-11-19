@@ -1,0 +1,127 @@
+{% extends 'aiproject/base.html' %}
+{% load static %}
+
+{% block title %}工具推薦：基本條件{% endblock %}
+
+{% block nav %}
+<a href="{% url 'home' %}">回首頁</a>
+{% endblock %}
+
+{% block content %}
+<div class="recommend-page">
+  <img src="{% static 'aiproject/images/recommend.jpg' %}" class="hero" alt="recommend">
+
+  <div class="container form-wrapper">
+    <h1 class="page-title">生成式 AI 工具推薦系統</h1>
+    <p class="page-desc">請完成四題單選，最後勾選希望功能（可複選）。</p>
+
+    <form id="form-basic" method="POST" action="{% url 'recommend' %}">
+      {% csrf_token %}
+
+      <!-- A. 產業（單選） -->
+      <div class="card-block">
+        <div class="section-header">
+          <span class="section-label">請問您的工作內容性質偏向...?</span>
+          <span class="section-note">單選（必填）</span>
+        </div>
+        <div class="option-grid">
+          <label><input type="radio" name="industry" value="manufacture" required> 製造與工業</label>
+          <label><input type="radio" name="industry" value="retail"> 零售與電商</label>
+          <label><input type="radio" name="industry" value="government"> 政府與公共/非營利事業</label>
+          <label><input type="radio" name="industry" value="law"> 法律與合規</label>
+          <label><input type="radio" name="industry" value="realestate"> 不動產與建築</label>
+          <label><input type="radio" name="industry" value="education"> 教育業</label>
+          <label><input type="radio" name="industry" value="healthcare"> 醫療與生技</label>
+          <label><input type="radio" name="industry" value="technology"> 科技與資訊</label>
+          <label><input type="radio" name="industry" value="marketing"> 行銷廣告與公關</label>
+          <label><input type="radio" name="industry" value="media"> 媒體與內容</label>
+          <label><input type="radio" name="industry" value="design"> 設計與創意</label>
+          <label><input type="radio" name="industry" value="finance"> 金融與保險</label>
+        </div>
+      </div>
+
+      <!-- B. 主要功能（單選） -->
+      <div class="card-block">
+        <div class="section-header">
+          <span class="section-label">請問您工作時主要的功能需求為...?</span>
+          <span class="section-note">單選（必填）</span>
+        </div>
+        <div class="option-grid option-grid--column">
+          <label><input type="radio" name="main_need" value="find_answer" required> 即問即答</label>
+          <label><input type="radio" name="main_need" value="search"> 搜尋引擎</label>
+          <label><input type="radio" name="main_need" value="text"> 文本生成</label>
+          <label><input type="radio" name="main_need" value="support_text"> 文書輔助</label>
+          <label><input type="radio" name="main_need" value="code"> 程式碼輔助</label>
+          <label><input type="radio" name="main_need" value="image_or_vedio"> 圖像 / 影像生成</label>
+        </div>
+      </div>
+
+      <!-- C. 價格（單選） -->
+      <div class="card-block">
+        <div class="section-header">
+          <span class="section-label">請問您可接受的價格區間(月費)...?</span>
+          <span class="section-note">單選（必填）</span>
+        </div>
+        <span class="section-note1">本平台匯率以32.5美元作為基準，可能因版本更新及匯率問題有所誤差，僅供參考</span>
+        <div class="option-grid">
+          <label><input type="radio" name="price_range" value="0" required> 免費</label>
+          <label><input type="radio" name="price_range" value="1"> 1–600 元</label>
+          <label><input type="radio" name="price_range" value="2"> 601–1000 元</label>
+          <label><input type="radio" name="price_range" value="3"> 1001–5000 元</label>
+          <label><input type="radio" name="price_range" value="4"> 5001 元以上</label>
+          <label><input type="radio" name="price_range" value="6"> 聯繫業務決定</label>
+          <label><input type="radio" name="price_range" value="7"> 依使用量計費</label>
+        </div>
+      </div>
+
+      <div class="card-block">
+        <div class="section-header">
+          <span class="section-label">請問您的使用者身分為...?</span>
+          <span class="section-note">單選（必填）</span>
+        </div>
+          <div class="option-grid" style="margin-bottom:8px">
+          <label><input type="radio" name="advanced_need" value="user_personal" required> 個人使用者 </label>
+          <label>  <input type="radio" name="advanced_need" value="user_team" required> 團隊使用者 </label>
+        </div>
+      </div>
+ 
+        <!-- D. 希望功能（複選，僅 4 項） -->
+      <div class="card-block">
+        <div class="section-header">
+            <span class="section-label">請問您希望工具具備的功能...?</span>
+            <span class="section-note">可複選</span>
+        </div>
+          <!-- 其他偏好（可複選） -->
+        <div class="option-grid">
+            <label><input type="checkbox" name="advanced_need" value="yearly_discount"> 有年繳優惠   </label>
+            <label> <input type="checkbox" name="advanced_need" value="support_chinese"> 支援中文介面 </label>
+          </div>
+      </div>
+
+      <div class="submit-row">
+        <button type="button" class="btn-secondary" onclick="document.getElementById('form-basic').reset()">清除</button>
+        <button type="submit" class="btn-primary">下一步</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+.hero{max-width:100%;height:auto;display:block;margin:10px auto}
+.form-wrapper{max-width:1080px;margin:0 auto 60px ; font-family: "Microsoft JhengHei", sans-serif;}
+.page-title{font-size:24px;font-weight:700;margin:12px 0 6px}
+.page-desc{color:#666}
+.card-block{border:1px solid #e5e5e5;border-radius:8px;padding:18px;margin:16px 0;background:#fff}
+.section-header{display:flex;gap:10px;align-items:baseline;margin-bottom:8px}
+.section-label{font-weight:700;border-left:4px solid #333;padding-left:8px;font-size:20px}
+.section-note{color:#666;font-size:13px}
+.section-note1{color:#f30a0aff;font-size:13px;line-height:1.8}
+.option-grid{display:flex;flex-wrap:wrap;gap:14px 24px}
+.option-grid--column{flex-direction:column}
+.option-grid label{display:flex;align-items:center;gap:6px}
+.submit-row{display:flex;gap:10px;justify-content:center;margin-top:10px}
+.btn-primary{background:#1a73e8;color:#fff;border:1px solid #1a73e8;border-radius:6px;padding:8px 18px}
+.btn-primary:hover{background:#165fc0;border-color:#165fc0}
+.btn-secondary{background:#f3f4f6;border:1px solid #d1d5db;border-radius:6px;padding:8px 14px}
+</style>
+{% endblock %}

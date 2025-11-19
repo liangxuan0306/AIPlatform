@@ -1,0 +1,52 @@
+{% extends 'aiproject/base.html' %}
+{% load static %}
+
+{% block title %}工具推薦：進一步篩選{% endblock %}
+
+{% block nav %}
+<a href="{% url 'home' %}">回首頁</a>
+{% endblock %}
+
+{% block content %}
+<div class="recommend-page">
+  <img src="{% static 'aiproject/images/recommend.jpg' %}" class="hero" alt="recommend">
+
+  <div class="container form-wrapper">
+    <h1 class="page-title">進一步篩選（一般）</h1>
+    <p class="page-desc">請問在以下的選項中，您希望工具所需要具備哪些篩選值（可複選）。</p>
+
+    <form id="form-step1" method="POST" action="{% url 'recommend1' %}">
+      {% csrf_token %}
+      <div class="card-block">
+        <div class="option-grid">
+          <label><input type="checkbox" name="advanced_step1" value="upload_data"> 可上傳文件</label>
+          <label><input type="checkbox" name="advanced_step1" value="make_data"> 文件/報告生成</label>
+          <label><input type="checkbox" name="advanced_step1" value="make_image"> 可生成圖片</label>
+          <label><input type="checkbox" name="advanced_step1" value="for_personal"> 內容可私有化</label>
+          <label><input type="checkbox" name="advanced_step1" value="for_business"> 可商業使用/營利公開</label>
+        </div>
+      </div>
+
+      <div class="submit-row">
+        <a class="btn-secondary" href="{% url 'recommend' %}">回上頁</a>
+        <button type="button" class="btn-secondary" onclick="document.getElementById('form-step1').reset()">清除</button>
+        <button type="submit" class="btn-primary">查看推薦結果</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+.hero{max-width:100%;height:auto;display:block;margin:10px auto}
+.form-wrapper{max-width:1080px;margin:0 auto 60px ; font-family: "Microsoft JhengHei", sans-serif;}
+.page-title{font-size:24px;font-weight:700;margin:12px 0 6px}
+.page-desc{color:#666}
+.card-block{border:1px solid #e5e5e5;border-radius:8px;padding:18px;margin:16px 0;background:#fff}
+.option-grid{display:flex;flex-wrap:wrap;gap:14px 24px}
+.option-grid label{display:flex;align-items:center;gap:6px}
+.submit-row{display:flex;gap:10px;justify-content:center;margin-top:10px}
+.btn-primary{background:#1a73e8;color:#fff;border:1px solid #1a73e8;border-radius:6px;padding:8px 18px}
+.btn-primary:hover{background:#165fc0;border-color:#165fc0}
+.btn-secondary{background:#f3f4f6;border:1px solid #d1d5db;border-radius:6px;padding:8px 14px}
+</style>
+{% endblock %}
